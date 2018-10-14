@@ -62,7 +62,10 @@ public class UserController {
 	public @ResponseBody Register add(@RequestParam Map<String,String> requestParams) {
 		
 		User user = new User();
-		user.setUid(requestParams.get("uid"));
+		String uid = requestParams.get("uid");
+		if ( uid == null )
+			return new Register("403");
+		user.setUid(uid);
 		user.setCreateTime(LocalDateTime.now());
 		userRepository.save(user);
 		return new Register("200");
