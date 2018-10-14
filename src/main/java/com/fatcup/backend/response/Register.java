@@ -1,9 +1,9 @@
 package com.fatcup.backend.response;
 
-public class register {
+public class Register {
 	private final String errorCode;
 	
-	public register(String errorCode) {
+	public Register(String errorCode) {
 		this.errorCode = errorCode;
 	}
 	
