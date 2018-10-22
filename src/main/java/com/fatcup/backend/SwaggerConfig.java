@@ -27,10 +27,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful API")
-                .description("rest api 文档构建利器")
-                .termsOfServiceUrl("http://blog.csdn.net/itguangit")
-                .contact("itguang")
+                .title("FatCup API")
+                .description("FatCup 伺服器API 描述")
+                .contact("HenryZheng")
                 .version("1.0")
                 .build();
     }

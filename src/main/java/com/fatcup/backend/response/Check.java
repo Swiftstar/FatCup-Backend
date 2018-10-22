@@ -1,6 +1,6 @@
 package com.fatcup.backend.response;
 
-public class Check {
+public class Check extends GeneralResponse {
 
 	final String uid;
 	final Boolean isUser;
