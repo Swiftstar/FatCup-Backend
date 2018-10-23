@@ -2,7 +2,8 @@ package com.fatcup.backend;
 
 import java.time.LocalDateTime;
 
-import org.apache.tomcat.util.buf.UDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,7 +19,6 @@ import io.swagger.annotations.ApiOperation;
 
 import com.fatcup.backend.data.User;
 import com.fatcup.backend.data.UserRepository;
-import com.fatcup.backend.response.Check;
 import com.fatcup.backend.response.GeneralResponse;
 import com.fatcup.backend.response.ReturnCode;
 import com.fatcup.backend.request.UserAddRequest;
@@ -31,11 +31,13 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@RequestMapping(value = "/check", method = {RequestMethod.POST})
 	public GeneralResponse check(
 			@RequestHeader(value = "Authorization") String token) {
 		GeneralResponse response = new GeneralResponse();
-		System.out.println("request token:" + token);
+		logger.debug("request token:" + token);
 
 		try {
 			FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
