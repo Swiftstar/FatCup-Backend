@@ -29,7 +29,6 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("FatCup API")
                 .description("FatCup 伺服器API 描述")
-                .contact("HenryZheng")
                 .version("1.0")
                 .build();
     }

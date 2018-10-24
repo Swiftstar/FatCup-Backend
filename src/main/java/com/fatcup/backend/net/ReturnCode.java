@@ -1,4 +1,4 @@
-package com.fatcup.backend.response;
+package com.fatcup.backend.net;
 
 public enum ReturnCode {
 	OK(0),ERROR(500);

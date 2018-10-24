@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fatcup.backend.response.GeneralResponse;
-import com.fatcup.backend.response.TestResponse;
-import com.fatcup.backend.response.ReturnCode;
+import com.fatcup.backend.net.ResponseBase;
+import com.fatcup.backend.net.ReturnCode;
 
 import io.swagger.annotations.Api;
 
@@ -22,8 +21,8 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/test", method = {RequestMethod.POST})
-	public GeneralResponse register(){
-		TestResponse register = new TestResponse();
+	public ResponseBase register(){
+		ResponseBase register = new ResponseBase();
 		register.setReturnCode(ReturnCode.OK);
 		ArrayList<String> testL = new ArrayList<>();
 		testL.add("abc");
@@ -31,7 +30,7 @@ public class IndexController {
 		register.Set("Number", 123);
 		register.Set("String", "Test");
 		register.Set("List", testL);
-		register.Set("Register", new TestResponse());
+		register.Set("Register", new ResponseBase());
 		return register;
 	}
 }

@@ -1,6 +1,6 @@
-package com.fatcup.backend.request;
+package com.fatcup.backend.net;
 
-public class UserAddRequest {
+public class UserDTO {
 	public String name;
 	public String phone;
 	public String birth;

@@ -1,17 +1,19 @@
-package com.fatcup.backend.response;
+package com.fatcup.backend.net;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class GeneralResponse {
-
-	final ObjectMapper objectMapper = new ObjectMapper();
+public class ResponseBase {
 	
 	long returnCode;
 	String returnMessage;
 	Map<String, Object> data;
+	
+	public ResponseBase() {
+		returnCode = 0;
+		returnMessage = "";
+		data = null;
+	}
 	
 	public long getReturnCode() {
 		return returnCode;
