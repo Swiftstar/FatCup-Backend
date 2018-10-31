@@ -32,14 +32,13 @@ public class DrinkController {
 	
 	@RequestMapping(value = "/test", method = {RequestMethod.GET})
 	public ResponseBase Test() throws Exception{
-		throw new UnsupportedOperationException();
-//		GeneralResponse response = new GeneralResponse();	
-//		ArrayList<Drink> aList = (ArrayList<Drink>) drinkRepository.findAll();
-//		
-//		response.setReturnCode(ReturnCode.OK);
-//		response.Set("drinklist", aList);
-//		
-//		return response;
+		ResponseBase response = new ResponseBase();	
+		ArrayList<Drink> aList = (ArrayList<Drink>) drinkRepository.findAll();
+		
+		response.setReturnCode(ReturnCode.OK);
+		response.Set("drinklist", aList);
+		
+		return response;
 	}
 
 }

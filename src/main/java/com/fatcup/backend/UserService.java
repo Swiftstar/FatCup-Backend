@@ -1,5 +1,6 @@
 package com.fatcup.backend;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.fatcup.backend.data.OrderRepository;
 import com.fatcup.backend.data.User;
 import com.fatcup.backend.data.UserRepository;
 import com.fatcup.backend.net.ResponseBase;
@@ -25,6 +27,8 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private FirebaseAuth firebaseAuth;
+	@Autowired
+	private OrderRepository orderRepository;
 	
 	Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -69,12 +73,19 @@ public class UserService {
 		}
 
 		String uid = decodedToken.getUid();
+		
+		if ( userRepository.findByUid(uid) != null ) {
+			response.setReturnCode(ReturnCode.OK);
+			response.setReturnMessage("exist user");
+			response.Set("status", false);
+			return ResponseEntity.ok(response) ;
+		}
 
 		User user = new User();
 		user.setUid(uid);
 		user.setName(request.name);
-		user.setBirthday(request.birth);
-		user.setGender(request.gender);
+		user.setBirthday(LocalDate.parse(request.birth));
+		user.setGender(User.Gender.valueOf(request.gender));
 		user.setLogintype(request.logintype);
 		user.setPhone(request.phone);
 		user.setCreateTime(LocalDateTime.now());

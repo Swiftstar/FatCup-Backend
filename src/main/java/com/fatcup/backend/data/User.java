@@ -1,9 +1,12 @@
 package com.fatcup.backend.data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,10 +27,11 @@ public class User {
 	private String phone;
 	
 	@Column
-	private String birthday;
+	private LocalDate birthday;
 	
-	@Column
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition="CHAR(1)")
+	private Gender gender;
 	
 	@Column
 	private LocalDateTime createTime;
@@ -50,16 +54,16 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -75,5 +79,9 @@ public class User {
 	}
 	public void setCreateTime(LocalDateTime time) {
 		this.createTime = time;
+	}
+	
+	public enum Gender {
+		M, F
 	}
 }

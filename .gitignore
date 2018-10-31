@@ -23,3 +23,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+/sslforfree
+/keystore.p12
+/src/main/resources/firebase-adminsdk.json
+/src/main/resources/keystore.jks
