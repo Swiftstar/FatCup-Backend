@@ -1,13 +1,15 @@
 package com.fatcup.backend;
 
-import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import org.simpleflatmapper.csv.CsvParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import com.fatcup.backend.data.Drink;
 import com.fatcup.backend.data.DrinkRepository;
@@ -20,9 +22,10 @@ public class CsvService {
 	
 	@EventListener(ApplicationStartedEvent.class)
 	public void InitDrinkData() throws Exception {
-		File file = ResourceUtils.getFile("classpath:csv/drinkdata.csv");
+		InputStream inputStream = new ClassPathResource("csv/drinkdata.csv").getInputStream();
+		Reader reader = new InputStreamReader(inputStream);
 		
-		CsvParser.mapTo(Drink.class).forEach(file, (s) -> {
+		CsvParser.mapTo(Drink.class).forEach(reader, (s) -> {
 			drinkRepository.save(s);
 		});
 	}

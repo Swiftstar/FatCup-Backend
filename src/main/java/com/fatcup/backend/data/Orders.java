@@ -28,37 +28,26 @@ public class Orders {
 	@JoinColumn
 	Set<OrderDetail> details = new HashSet<OrderDetail>();
 	
-	public Set<OrderDetail> getDetails() {
-		return details;
-	}
-
-	public void setDetails(Set<OrderDetail> details) {
-		this.details = details;
-	}
+	@Column
+	int status;
 	
-//	@ManyToMany
-//	@JoinTable(name="orders_drink",
-//	joinColumns= {@JoinColumn(name="orders_fk")},
-//	inverseJoinColumns= {@JoinColumn(name="drinks_fk")})
-//	Set<Drink> drinks;
-//
-//	public Set<Drink> getDrinks() {
-//		return drinks;
-//	}
-//
-//	public void setDrinks(Set<Drink> drinks) {
-//		this.drinks = drinks;
-//	}
-
 	@Column
 	LocalDateTime orderDateTime;
-
+	
 	public Customer getUser() {
 		return user;
 	}
 
 	public void setUser(Customer user) {
 		this.user = user;
+	}
+	
+	public Set<OrderDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<OrderDetail> details) {
+		this.details = details;
 	}
 
 	public LocalDateTime getOrderDateTime() {

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fatcup.backend.data.Drink;
 import com.fatcup.backend.data.DrinkRepository;
@@ -39,8 +40,13 @@ public class IndexController {
 	DrinkRepository drinkRepository;
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET})
-	public @ResponseBody String index() {
-		return "Hello";
+	public String index(ModelAndView mv) {
+		return "main";
+	}
+	
+	@RequestMapping(value = "/quickorder", method = {RequestMethod.GET})
+	public String QuickOrder(ModelAndView mv) {
+		return "quickorder";
 	}
 	
 	@RequestMapping(value = "/new", method = {RequestMethod.GET})
