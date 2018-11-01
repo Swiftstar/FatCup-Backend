@@ -32,6 +32,9 @@ public class Drink {
 	@Column
 	int capacity;
 	
+	@Column
+	double price;
+	
 	public String getName() {
 		return name;
 	}
@@ -55,6 +58,15 @@ public class Drink {
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	
 	public String toString() {
 		return String.format("%s,%s,%s,%s",id, calories, capacity, name );

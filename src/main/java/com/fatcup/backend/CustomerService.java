@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.fatcup.backend.data.Customer;
 import com.fatcup.backend.data.CustomerRepository;
+import com.fatcup.backend.net.OrderDTO;
 import com.fatcup.backend.net.ResponseBase;
 import com.fatcup.backend.net.ReturnCode;
 import com.fatcup.backend.net.UserDTO;
@@ -26,6 +27,8 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private FirebaseAuth firebaseAuth;
+	@Autowired
+	private OrderSevice orderSevice;
 	
 	Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
@@ -90,6 +93,24 @@ public class CustomerService {
 		
 		response.Set("status", true);
 
+		return ResponseEntity.ok(response);
+	}
+	
+	public ResponseEntity<ResponseBase> OrderAdd(OrderDTO request) {
+		ResponseBase response = new ResponseBase();	
+		int result = orderSevice.AddOrder(request);	
+		switch(result) {
+			case -1:
+				response.setReturnCode(HttpStatus.BAD_REQUEST.value());
+				response.setReturnMessage("user not exist");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			case -2:
+				response.setReturnCode(HttpStatus.BAD_REQUEST.value());
+				response.setReturnMessage("drink id not exist");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+		
+		response.Set("order_id", result);	
 		return ResponseEntity.ok(response);
 	}
 }

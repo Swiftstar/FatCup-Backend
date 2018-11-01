@@ -1,5 +1,6 @@
 package com.fatcup.backend.data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,25 @@ public class OrderDetail {
 	@OneToOne
 	Drink drink;
 	
+	@Column
+	int num;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 	public OrderDetail(Drink drink) {
 		this.drink = drink;
 	}

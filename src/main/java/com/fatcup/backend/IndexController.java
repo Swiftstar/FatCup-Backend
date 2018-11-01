@@ -3,6 +3,7 @@ package com.fatcup.backend;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.fatcup.backend.data.OrderDetail;
 import com.fatcup.backend.data.OrderDetailRepository;
 import com.fatcup.backend.data.OrderRepository;
 import com.fatcup.backend.data.Orders;
+import com.fatcup.backend.data.OrdersStatus;
 import com.fatcup.backend.data.Customer;
 import com.fatcup.backend.data.CustomerRepository;
 import com.fatcup.backend.net.ResponseBase;
@@ -71,23 +73,30 @@ public class IndexController {
 		user.setUid("a001");
 		customerRepository.save(user);
 		
-		Drink drink = new Drink();
-		drink.setName("apple juice");	
-		drinkRepository.save(drink);
-		
-		Drink drink1 = new Drink();
-		drink1.setName("orange juice");	
-		drinkRepository.save(drink1);
+//		Drink drink = new Drink();
+//		drink.setName("apple juice");	
+//		drinkRepository.save(drink);
+//		
+//		Drink drink1 = new Drink();
+//		drink1.setName("orange juice");	
+//		drinkRepository.save(drink1);
 		
 		Set<OrderDetail> set = new HashSet<OrderDetail>();
-		set.add(new OrderDetail(drink));
-		set.add(new OrderDetail(drink1));
+		OrderDetail oDetail = new OrderDetail(
+				drinkRepository.findById(Integer.valueOf(1)).get());
+		oDetail.setNum(1);
+		set.add(oDetail);
+		oDetail = new OrderDetail(
+				drinkRepository.findById(Integer.valueOf(4)).get());
+		oDetail.setNum(2);
+		set.add(oDetail);
 		orderDetailRepository.saveAll(set);
 
 		Orders orders = new Orders();
 		orders.setUser(user);
 		orders.setDetails(set);
 		orders.setOrderDateTime( LocalDateTime.now());
+		orders.setStatus(OrdersStatus.START);
 		orderRepository.save(orders);
 		
 		return register;

@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import com.fatcup.backend.net.OrderDTO;
 import com.fatcup.backend.net.ResponseBase;
 import com.fatcup.backend.net.UserDTO;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/customer")
 @Api(description = "用户管理")
 public class CustomerController {
 	
@@ -26,7 +27,7 @@ public class CustomerController {
 	
 	Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
-	@RequestMapping(value = "/check", method = {RequestMethod.POST})
+	@RequestMapping(value = "/user/check", method = {RequestMethod.POST})
 	public ResponseEntity<ResponseBase> Check(
 			@RequestHeader(value = "Authorization") String token) {
 		logger.debug("request token:" + token);	
@@ -34,10 +35,16 @@ public class CustomerController {
 	}
 	
 	@ApiOperation(value = "新增用户", notes = "新增用戶")
-	@RequestMapping(value = "/add", method = {RequestMethod.POST})
+	@RequestMapping(value = "/user/add", method = {RequestMethod.POST})
 	public ResponseEntity<ResponseBase> Add(
 			@RequestHeader(value = "Authorization") String token,
 			@RequestBody UserDTO request) {
 		return customerService.Add(token, request);
+	}
+	
+	@RequestMapping(value = "/order/add", method = {RequestMethod.POST})
+	public ResponseEntity<ResponseBase> OrderAdd(@RequestBody OrderDTO request) {
+		
+		return customerService.OrderAdd(request);
 	}
 }
