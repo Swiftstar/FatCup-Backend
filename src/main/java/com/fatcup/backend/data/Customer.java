@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="customer")
+public class Customer {
 
 	@Id
 	private String uid;

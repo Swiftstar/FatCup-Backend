@@ -15,11 +15,19 @@ public class Drink {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Column
 	String name;
 	
 	@Column
-	int calories;
+	double calories;
 	
 	@Column
 	int capacity;
@@ -32,11 +40,11 @@ public class Drink {
 		this.name = name;
 	}
 
-	public int getCalories() {
+	public double getCalories() {
 		return calories;
 	}
 
-	public void setCalories(int calories) {
+	public void setCalories(double calories) {
 		this.calories = calories;
 	}
 
@@ -46,6 +54,10 @@ public class Drink {
 
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}
+	
+	public String toString() {
+		return String.format("%s,%s,%s,%s",id, calories, capacity, name );
 	}
 
 }

@@ -10,14 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 @Entity
 public class Orders {
@@ -27,10 +22,10 @@ public class Orders {
 	int id;
 
 	@OneToOne
-	User user;
+	Customer user;
 	
 	@OneToMany
-	@JoinColumn(name="items")
+	@JoinColumn
 	Set<OrderDetail> details = new HashSet<OrderDetail>();
 	
 	public Set<OrderDetail> getDetails() {
@@ -58,11 +53,11 @@ public class Orders {
 	@Column
 	LocalDateTime orderDateTime;
 
-	public User getUser() {
+	public Customer getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Customer user) {
 		this.user = user;
 	}
 

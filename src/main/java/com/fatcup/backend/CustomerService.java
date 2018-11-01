@@ -10,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fatcup.backend.data.OrderRepository;
-import com.fatcup.backend.data.User;
-import com.fatcup.backend.data.UserRepository;
+import com.fatcup.backend.data.Customer;
+import com.fatcup.backend.data.CustomerRepository;
 import com.fatcup.backend.net.ResponseBase;
 import com.fatcup.backend.net.ReturnCode;
 import com.fatcup.backend.net.UserDTO;
@@ -21,16 +20,14 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 
 @Service
-public class UserService {
+public class CustomerService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private CustomerRepository customerRepository;
 	@Autowired
 	private FirebaseAuth firebaseAuth;
-	@Autowired
-	private OrderRepository orderRepository;
 	
-	Logger logger = LoggerFactory.getLogger(UserService.class);
+	Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
 	public ResponseEntity<ResponseBase> Check(String token) {
 		ResponseBase response = new ResponseBase();
@@ -47,7 +44,7 @@ public class UserService {
 		String uid = decodedToken.getUid();
 		logger.debug("uid:" + uid);
 
-		User u = userRepository.findByUid(uid);
+		Customer u = customerRepository.findByUid(uid);
 		if (u != null) {
 			response.setReturnCode(ReturnCode.OK);
 			response.Set("uid", u.getUid());
@@ -74,22 +71,22 @@ public class UserService {
 
 		String uid = decodedToken.getUid();
 		
-		if ( userRepository.findByUid(uid) != null ) {
+		if ( customerRepository.findByUid(uid) != null ) {
 			response.setReturnCode(ReturnCode.OK);
-			response.setReturnMessage("exist user");
+			response.setReturnMessage("exist customer");
 			response.Set("status", false);
 			return ResponseEntity.ok(response) ;
 		}
 
-		User user = new User();
-		user.setUid(uid);
-		user.setName(request.name);
-		user.setBirthday(LocalDate.parse(request.birth));
-		user.setGender(User.Gender.valueOf(request.gender));
-		user.setLogintype(request.logintype);
-		user.setPhone(request.phone);
-		user.setCreateTime(LocalDateTime.now());
-		userRepository.save(user);
+		Customer customer = new Customer();
+		customer.setUid(uid);
+		customer.setName(request.name);
+		customer.setBirthday(LocalDate.parse(request.birth));
+		customer.setGender(Customer.Gender.valueOf(request.gender));
+		customer.setLogintype(request.logintype);
+		customer.setPhone(request.phone);
+		customer.setCreateTime(LocalDateTime.now());
+		customerRepository.save(customer);
 		
 		response.Set("status", true);
 

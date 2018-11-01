@@ -19,18 +19,18 @@ import com.fatcup.backend.net.UserDTO;
 @RestController
 @RequestMapping("/user")
 @Api(description = "用户管理")
-public class UserController {
+public class CustomerController {
 	
 	@Autowired
-	private UserService userService;
+	private CustomerService customerService;
 	
-	Logger logger = LoggerFactory.getLogger(UserController.class);
+	Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
 	@RequestMapping(value = "/check", method = {RequestMethod.POST})
 	public ResponseEntity<ResponseBase> Check(
 			@RequestHeader(value = "Authorization") String token) {
 		logger.debug("request token:" + token);	
-		return userService.Check(token);
+		return customerService.Check(token);
 	}
 	
 	@ApiOperation(value = "新增用户", notes = "新增用戶")
@@ -38,6 +38,6 @@ public class UserController {
 	public ResponseEntity<ResponseBase> Add(
 			@RequestHeader(value = "Authorization") String token,
 			@RequestBody UserDTO request) {
-		return userService.Add(token, request);
+		return customerService.Add(token, request);
 	}
 }

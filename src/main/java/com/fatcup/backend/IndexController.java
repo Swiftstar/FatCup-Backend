@@ -18,8 +18,8 @@ import com.fatcup.backend.data.OrderDetail;
 import com.fatcup.backend.data.OrderDetailRepository;
 import com.fatcup.backend.data.OrderRepository;
 import com.fatcup.backend.data.Orders;
-import com.fatcup.backend.data.User;
-import com.fatcup.backend.data.UserRepository;
+import com.fatcup.backend.data.Customer;
+import com.fatcup.backend.data.CustomerRepository;
 import com.fatcup.backend.net.ResponseBase;
 import com.fatcup.backend.net.ReturnCode;
 
@@ -30,7 +30,7 @@ import io.swagger.annotations.Api;
 public class IndexController {
 	
 	@Autowired
-	UserRepository userRepository;
+	CustomerRepository customerRepository;
 	@Autowired
 	OrderRepository orderRepository;
 	@Autowired
@@ -40,30 +40,6 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method = {RequestMethod.GET})
 	public @ResponseBody String index() {
-		
-		User user = new User();
-		user.setUid("a001");
-		userRepository.save(user);
-		
-		Drink drink = new Drink();
-		drink.setName("apple juice");	
-		drinkRepository.save(drink);
-		
-		Drink drink1 = new Drink();
-		drink1.setName("orange juice");	
-		drinkRepository.save(drink1);
-		
-		Set<OrderDetail> set = new HashSet<OrderDetail>();
-		set.add(new OrderDetail(drink));
-		set.add(new OrderDetail(drink1));
-		orderDetailRepository.saveAll(set);
-
-		Orders orders = new Orders();
-		orders.setUser(user);
-		orders.setDetails(set);
-		orders.setOrderDateTime( LocalDateTime.now());
-		orderRepository.save(orders);
-
 		return "Hello";
 	}
 	
@@ -84,6 +60,30 @@ public class IndexController {
 		register.Set("String", "Test");
 		register.Set("List", testL);
 		register.Set("Register", new ResponseBase());
+		
+		Customer user = new Customer();
+		user.setUid("a001");
+		customerRepository.save(user);
+		
+		Drink drink = new Drink();
+		drink.setName("apple juice");	
+		drinkRepository.save(drink);
+		
+		Drink drink1 = new Drink();
+		drink1.setName("orange juice");	
+		drinkRepository.save(drink1);
+		
+		Set<OrderDetail> set = new HashSet<OrderDetail>();
+		set.add(new OrderDetail(drink));
+		set.add(new OrderDetail(drink1));
+		orderDetailRepository.saveAll(set);
+
+		Orders orders = new Orders();
+		orders.setUser(user);
+		orders.setDetails(set);
+		orders.setOrderDateTime( LocalDateTime.now());
+		orderRepository.save(orders);
+		
 		return register;
 	}
 }
