@@ -2,6 +2,10 @@ package com.fatcup.backend;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.fatcup.backend.data.Customer;
 import com.fatcup.backend.data.CustomerRepository;
+import com.fatcup.backend.data.Orders;
 import com.fatcup.backend.net.OrderDTO;
 import com.fatcup.backend.net.ResponseBase;
 import com.fatcup.backend.net.ReturnCode;
@@ -111,6 +116,26 @@ public class CustomerService {
 		}
 		
 		response.Set("order_id", result);	
+		return ResponseEntity.ok(response);
+	}
+	
+	public ResponseEntity<ResponseBase> OrderHistory(OrderDTO request) {
+		ResponseBase response = new ResponseBase();	
+		List<Orders> orders = orderSevice.OrderHistory(request);
+		if (orders == null) {
+			response.setReturnCode(HttpStatus.BAD_REQUEST.value());
+			response.setReturnMessage("request error");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+		
+		List<Map<String, Object>> ordersList = new ArrayList<Map<String, Object>>();
+		for (Orders o : orders) {
+			Map<String, Object> singeOrder = new HashMap<String, Object>();
+			singeOrder.put("items", o.getDetails());
+			singeOrder.put("order_id", o.getId());
+			ordersList.add(singeOrder);
+		}
+		response.Set("orders", orders);
 		return ResponseEntity.ok(response);
 	}
 }

@@ -7,11 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class OrderDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	Long id;
 	
 	@OneToOne
@@ -19,6 +22,8 @@ public class OrderDetail {
 	
 	@Column
 	int num;
+	
+	public OrderDetail() { }
 	
 	public Long getId() {
 		return id;

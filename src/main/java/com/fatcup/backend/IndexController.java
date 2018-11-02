@@ -3,9 +3,12 @@ package com.fatcup.backend;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fatcup.backend.data.Drink;
 import com.fatcup.backend.data.DrinkRepository;
 import com.fatcup.backend.data.OrderDetail;
 import com.fatcup.backend.data.OrderDetailRepository;
@@ -31,6 +33,8 @@ import io.swagger.annotations.Api;
 @Controller
 @Api(description = "首頁")
 public class IndexController {
+	
+	Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@Autowired
 	CustomerRepository customerRepository;
@@ -55,6 +59,22 @@ public class IndexController {
 	public String n(Model m) {
 		m.addAttribute("name","Henry");
 		return "newfile";
+	}
+	
+	@RequestMapping(value = "/banners", method = {RequestMethod.GET})
+	public @ResponseBody ResponseBase Banner(HttpServletRequest requestHttp) {
+		ResponseBase response = new ResponseBase();
+		
+		String scheme = requestHttp.getScheme();
+		String serverName = requestHttp.getServerName();
+		int port = requestHttp.getServerPort();
+	
+		ArrayList<String> banners = new ArrayList<String>();
+		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b1.jpg"));
+		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b2.jpg"));
+		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b3.jpg"));
+		response.Set("banners", banners);
+		return response;
 	}
 
 	@RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
@@ -93,7 +113,7 @@ public class IndexController {
 		orderDetailRepository.saveAll(set);
 
 		Orders orders = new Orders();
-		orders.setUser(user);
+		orders.setCustomer(user);
 		orders.setDetails(set);
 		orders.setOrderDateTime( LocalDateTime.now());
 		orders.setStatus(OrdersStatus.START);

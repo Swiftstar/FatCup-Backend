@@ -2,6 +2,7 @@ package com.fatcup.backend;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -63,15 +64,23 @@ public class OrderSevice {
 		orderDetailRepository.saveAll(set);
 
 		Orders orders = new Orders();
-		orders.setUser(customer);
+		orders.setCustomer(customer);
 		orders.setStatus(OrdersStatus.START);
 		orders.setDetails(set);
-		orders.setLatitude(request.latitude);
-		orders.setLongitude(request.longitude);
+		orders.setCustomerLat(request.latitude);
+		orders.setCustomerLong(request.longitude);
 		orders.setRemark(request.remark);
 		orders.setOrderDateTime(LocalDateTime.now());
 		orderRepository.save(orders);
 		
 		return orders.getId();
+	}
+	
+	public List<Orders> OrderHistory(OrderDTO request) {
+		String uid = request.uid;
+		Customer customer = customerRepository.findByUid(uid);
+		if ( customer == null )
+			return null;
+		return orderRepository.findByCustomer(customer);
 	}
 }

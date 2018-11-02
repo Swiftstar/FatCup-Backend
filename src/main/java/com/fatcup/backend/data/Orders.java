@@ -12,11 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import com.google.firestore.v1beta1.StructuredQuery.Order;
 
 @Entity
 public class Orders {
@@ -26,24 +23,24 @@ public class Orders {
 	int id;
 
 	@OneToOne
-	Customer user;
+	@JoinColumn(name="customerId")
+	Customer customer;
 	
 	@OneToMany
-	@JoinColumn
+	@JoinColumn(name="ordersId")
 	Set<OrderDetail> details = new HashSet<OrderDetail>();
 	
 	@Enumerated(EnumType.ORDINAL)
-	@JoinTable(name="OrderStatus")
 	OrdersStatus status;
 
 	@Column
 	LocalDateTime orderDateTime;
 	
 	@Column
-	double latitude;
+	double customerLat;
 	
 	@Column
-	double longitude;
+	double customerLong;
 	
 	@Column
 	String remark;
@@ -64,12 +61,12 @@ public class Orders {
 		this.status = status;
 	}
 
-	public Customer getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(Customer user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 	public Set<OrderDetail> getDetails() {
@@ -80,20 +77,20 @@ public class Orders {
 		this.details = details;
 	}
 	
-	public double getLatitude() {
-		return latitude;
+	public double getCustomerLat() {
+		return customerLat;
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setCustomerLat(double latitude) {
+		this.customerLat = latitude;
 	}
 
-	public double getLongitude() {
-		return longitude;
+	public double getCustomerLong() {
+		return customerLong;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void setCustomerLong(double longitude) {
+		this.customerLong = longitude;
 	}
 
 	public String getRemark() {
