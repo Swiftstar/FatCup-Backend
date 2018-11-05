@@ -116,7 +116,7 @@ public class IndexController {
 		orders.setCustomer(user);
 		orders.setDetails(set);
 		orders.setOrderDateTime( LocalDateTime.now());
-		orders.setStatus(OrdersStatus.START);
+		orders.setStatus(OrdersStatus.WATING);
 		orderRepository.save(orders);
 		
 		return register;

@@ -35,6 +35,13 @@ public class Drink {
 	@Column
 	double price;
 	
+	@Column
+	String image;
+
+	@Column
+	String description;
+	
+
 	public String getName() {
 		return name;
 	}
@@ -66,8 +73,23 @@ public class Drink {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String toString() {
 		return String.format("%s,%s,%s,%s",id, calories, capacity, name );
 	}

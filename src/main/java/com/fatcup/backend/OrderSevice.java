@@ -65,7 +65,7 @@ public class OrderSevice {
 
 		Orders orders = new Orders();
 		orders.setCustomer(customer);
-		orders.setStatus(OrdersStatus.START);
+		orders.setStatus(OrdersStatus.WATING);
 		orders.setDetails(set);
 		orders.setCustomerLat(request.latitude);
 		orders.setCustomerLong(request.longitude);

@@ -46,6 +46,9 @@ public class ResponseBase {
 		Map<String, Object> map = data;
 		map.put(key, value);
 	}
+	public void Set(Map<String, Object> map) {	
+		data = map;
+	}
 	
 	public Object Get(String key) {
 		if ( data == null )

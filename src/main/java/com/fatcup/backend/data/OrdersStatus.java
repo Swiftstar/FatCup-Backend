@@ -1,9 +1,8 @@
 package com.fatcup.backend.data;
 
 public enum OrdersStatus {
-	START,
+	WATING,
 	ACCEPT,
-	SHIPPING,
 	CANCEL,
 	FINISH
 }
