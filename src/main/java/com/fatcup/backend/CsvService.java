@@ -23,7 +23,7 @@ public class CsvService {
 	@EventListener(ApplicationStartedEvent.class)
 	public void InitDrinkData() throws Exception {
 		InputStream inputStream = new ClassPathResource("csv/drinkdata.csv").getInputStream();
-		Reader reader = new InputStreamReader(inputStream);
+		Reader reader = new InputStreamReader(inputStream, "UTF-8");
 		
 		CsvParser.mapTo(Drink.class).forEach(reader, (s) -> {
 			drinkRepository.save(s);
