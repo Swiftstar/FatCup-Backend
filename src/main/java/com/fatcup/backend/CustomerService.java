@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fatcup.backend.data.Customer;
 import com.fatcup.backend.data.CustomerRepository;
 import com.fatcup.backend.data.Orders;
@@ -136,6 +137,26 @@ public class CustomerService {
 			ordersList.add(singeOrder);
 		}
 		response.Set("orders", orders);
+		return ResponseEntity.ok(response);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ResponseEntity<ResponseBase> OrderFinish(OrderDTO request) {
+		ResponseBase response = new ResponseBase();
+		Orders orders = orderSevice.OrderFinish(request.orderId);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> data = objectMapper.convertValue(orders, HashMap.class);
+		response.Set(data);
+		return ResponseEntity.ok(response);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ResponseEntity<ResponseBase> OrderDelete(OrderDTO request) {
+		ResponseBase response = new ResponseBase();
+		Orders orders = orderSevice.OrderDelete(request.orderId);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> data = objectMapper.convertValue(orders, HashMap.class);
+		response.Set(data);
 		return ResponseEntity.ok(response);
 	}
 }

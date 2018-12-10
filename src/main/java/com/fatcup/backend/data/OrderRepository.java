@@ -12,4 +12,7 @@ public interface OrderRepository extends CrudRepository<Orders, Long> {
 	public List<Orders> findByCustomer(Customer customer);
 	
 	public List<Orders> findByStatusIn(Collection<OrdersStatus> status);
+	
+	public List<Orders> findByTeam(Team team);
+	public List<Orders> findByTeamAndStatus(Team team, OrdersStatus status);
 }

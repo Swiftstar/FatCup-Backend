@@ -73,6 +73,7 @@ public class IndexController {
 		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b1.jpg"));
 		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b2.jpg"));
 		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b3.jpg"));
+//		banners.add(String.format("%s://%s:%s/%s", scheme,serverName,port,"banner/b3.jpg"));
 		response.Set("banners", banners);
 		return response;
 	}

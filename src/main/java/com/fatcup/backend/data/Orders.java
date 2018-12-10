@@ -43,7 +43,17 @@ public class Orders {
 	double customerLong;
 	
 	@Column
+	double teamLat;
+	
+	@Column
+	double teamLong;
+	
+	@Column
 	String remark;
+	
+	@OneToOne
+	@JoinColumn(name="teamId")
+	Team team;
 	
 	public int getId() {
 		return id;
@@ -69,6 +79,14 @@ public class Orders {
 		this.customer = customer;
 	}
 	
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	public Set<OrderDetail> getDetails() {
 		return details;
 	}
@@ -87,6 +105,22 @@ public class Orders {
 
 	public double getCustomerLong() {
 		return customerLong;
+	}
+
+	public double getTeamLat() {
+		return teamLat;
+	}
+
+	public void setTeamLat(double teamLat) {
+		this.teamLat = teamLat;
+	}
+
+	public double getTeamLong() {
+		return teamLong;
+	}
+
+	public void setTeamLong(double teamLong) {
+		this.teamLong = teamLong;
 	}
 
 	public void setCustomerLong(double longitude) {
